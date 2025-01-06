@@ -33,9 +33,8 @@ export default async function loginEndpoint(client: Client, req: z.infer<typeof 
 
     log("[LOGIN] User found.", user.$id);
 
-    const token = await users.createSession(user.$id).catch((err) => error("[LOGIN] Failed to create session", err));
+    const token = await users.createToken(user.$id).catch((err) => error("[LOGIN] Failed to create token", err));
     if (!token?.secret) {
-        error("[LOGIN] Failed to create session");
         return ["Failed to create session", 500];
     }
 
