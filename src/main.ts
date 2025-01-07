@@ -1,8 +1,8 @@
-import { AppwriteRequest } from './typings';
-import axios, { proxyServer } from './axios';
-import challengeEndpoint, { authEndpointSchema } from './endpoints/challenge';
-import { Client } from 'node-appwrite';
-import loginEndpoint, { loginEndpointSchema } from './endpoints/login';
+import { AppwriteRequest } from "./typings";
+import axios, { proxyServer } from "./axios";
+import challengeEndpoint, { authEndpointSchema } from "./endpoints/challenge";
+import { Client } from "node-appwrite";
+import loginEndpoint, { loginEndpointSchema } from "./endpoints/login";
 
 export default async ({ req, res, log, error }: AppwriteRequest) => {
   log("[PROXY]", proxyServer);
@@ -10,7 +10,15 @@ export default async ({ req, res, log, error }: AppwriteRequest) => {
 
   const client = new Client()
     .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID!)
-    .setKey(req.headers['x-appwrite-key']);
+    .setKey(req.headers["x-appwrite-key"]);
+
+  if (req.method === "OPTIONS") {
+    return res.text("", 200, {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+      "Access-Control-Allow-Headers": "*",
+    })
+  }
 
   if (req.method == "POST" && req.path == "/challenge") {
     log("[CHALLENGE] Starting challenge using CMS...")

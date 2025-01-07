@@ -2,8 +2,8 @@ export interface Request {
   bodyText: string; // Raw request body as text
   bodyJson: Record<string, unknown> | string; // Parsed JSON object or raw string if not JSON
   headers: Record<string, string>; // Object containing lowercase string keys and their values
-  scheme: 'http' | 'https'; // Protocol used in the request, based on x-forwarded-proto header
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD'; // HTTP methods
+  scheme: "http" | "https"; // Protocol used in the request, based on x-forwarded-proto header
+  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "OPTIONS" | "HEAD"; // HTTP methods
   url: string; // Full request URL
   host: string; // Hostname from the request
   port: string; // Port number from the request
