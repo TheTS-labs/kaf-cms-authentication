@@ -23,8 +23,12 @@ Sample `POST` Request:
 
 Sample `200` Response:
 
-```text
-SMS sent
+```json
+{
+  "code": "OK",
+  "message": "SMS sent successfully.",
+  "full": null
+}
 ```
 
 ### POST /login
@@ -38,7 +42,7 @@ Sample `POST` Request:
 ```json
 {
   "username": "username",
-  "code": "123456"
+  "code": "12345"
 }
 ```
 
@@ -48,8 +52,12 @@ Sample `200` Response:
 
 ```text
 {
-    "secret": "eyJpZCI6IlRPVlRSIiwic2VjcmV0IjoiNjcyZDFmMDlkN2JlOWU0YTdiZWQ5N2NhMzY2MTM3YmFkYTRlYzRlZjk2YzM0ZGYxMmQ2YTY4N2MyOWIzNjRkODNjOTcxOTQwYTA1YjhhNTI4MzhiYmVhMzg0ZDkxODU1Mjk4YmUzZjgxZDEwZTYxOTk4MDcyMTE5MjE1ODE4MDkzMDc2MDBmMTFhMmVkNjIyODJhODMzODViM2IzZTJiNDc1NTFhNDMyOTg1YzQ3ZDc1ZGViY2EwZmQ3NTYyZTAwZjZkNGYxMjJjYjcyNTg1NjM1ODhiYWQ2YTc2ZGQ3MzMxMGZmMjZjODFhZjcwMDY5MTMzNDViYmM0MDU1MTE2MCJ9",
-    "cms_token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJhdXRoLXVzZXJcIjpcIlRPVlRSXCIsXCJtb3VudGVyLWlkXCI6Njg3N30iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJleHAiOjE3MzYyNjIzNjJ9.GnhYOfqjonaOXyqA3m5d_VyEn3jO_XBP4tsXQULZehE4sAplHTIhNB4Q3AhnGmfobLWQdxPR4sU-RuMYuB_Z3w"
+    "code": "OK",
+    "message": "Login was successful",
+    "full": {
+        "secret": "237cda",
+        "cms_token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJhdXRoLXVzZXJcIjpcIlRPVlRSXCIsXCJtb3VudGVyLWlkXCI6Njg3N30iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJleHAiOjE3MzY1MzUyOTR9.msUV0Jw-jf4IIoqoQtpgVsBDs_4zlqnPlC_e7zgx1JM0lxyZQLa1XyqAO5SgAZVdZdlF1nSXBB7V72Ey0K-ujQ"
+    }
 }
 ```
 

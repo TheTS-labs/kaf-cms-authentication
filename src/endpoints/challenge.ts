@@ -1,46 +1,77 @@
 import { Client, Users } from "node-appwrite";
 import { z } from "zod";
-import { Logger } from "../typings";
+import { Logger, Result } from "../typings";
 import axios from "../axios";
+import { StatusCodes } from "http-status-codes";
 
 export const authEndpointSchema = z.object({
     username: z.string(),
     password: z.string(),
 });
 
-export default async function challengeEndpoint(client: Client, req: z.infer<typeof authEndpointSchema>, log: Logger, error: Logger): Promise<[string, number]> {
-    log("[CHALLENGE] Preparing request...")
+export default async function challengeEndpoint(
+    client: Client, req: z.infer<typeof authEndpointSchema>, log: Logger, error: Logger
+): Promise<[Result, number]> {
+    log("[CHALLENGE] Preparing request...");
 
-    log("[CHALLENGE] Getting user...")
+    log("[CHALLENGE] Retrieving user details...");
     const users = new Users(client);
     const user = await users.get(req.username).catch(async () => {
-        log("[CHALLENGE] User not found, creating...")
+        log("[CHALLENGE] User not found. Attempting to create user...");
     
         const user = await users.create(req.username).catch((err) => {
-        error("[CHALLENGE] Failed to create user", err);
+            error("[CHALLENGE] Failed to create user", err);
         });
 
         return user;
     });
 
     if (!user) {
-        error("[CHALLENGE] Failed to create/get user");
-        return ["Failed to create/get user", 500];
+        return [{
+            code: "USER_ERROR",
+            message: "Unable to create user.",
+            full: null
+        }, StatusCodes.INTERNAL_SERVER_ERROR];
     }
+
+    log("[CHALLENGE] User retrieved successfully.", user.$id);
 
     if (!user.status) {
-        error("[CHALLENGE] User blocked");
-        return ["User blocked", 403];
+        error("[CHALLENGE] User account is blocked.");
+        return [{
+            code: "USER_ERROR",
+            message: "User account is blocked.",
+            full: null
+        }, StatusCodes.FORBIDDEN];
     }
 
-    const response = await axios.post("/api/preAuthenticate", req);
-    if (response.status != 200) {
-        error("[CHALLENGE] Request failed: CMS", response.status);
-        return [response.statusText, response.status];
+    log("[CHALLENGE] Sending request to CMS for challenge...");
+    const response = await axios.post("/api/preAuthenticate", req).catch((err) => {
+        error("[CHALLENGE] Failed to communicate with CMS", err);
+    });
+
+    if (!response) {
+        return [{
+            code: "CMS_ERROR",
+            message: "Failed to communicate with CMS.",
+            full: null
+        }, StatusCodes.INTERNAL_SERVER_ERROR];
     }
 
-    log("[CHALLENGE] User found/created.", user.$id);
-    log("[CHALLENGE] Request successful.")
+    if (response.status !== StatusCodes.OK) {
+        error("[CHALLENGE] CMS returned an unsuccessful status", response.status);
+        return [{
+            code: "CMS_ERROR",
+            message: "CMS returned an error.",
+            full: response.data
+        }, response.status];
+    }
+
+    log("[CHALLENGE] CMS challenge request successful.");
     
-    return ["SMS sent", 200];
+    return [{
+        code: "OK",
+        message: "SMS sent successfully.",
+        full: null
+    }, StatusCodes.OK];
 }

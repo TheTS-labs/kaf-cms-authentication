@@ -16,7 +16,6 @@ export default axios.create({
     httpsAgent: proxyAgent,
     headers: {
         "Content-Type": "application/json",
-        "Host": "cms-mobile-api.fcs.kyivstar.ua",
         "User-Agent": "okhttp/4.9.0"
     }
 });
