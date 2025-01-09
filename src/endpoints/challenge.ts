@@ -29,18 +29,18 @@ export default async function challengeEndpoint(
     if (!user) {
         return [{
             code: "USER_ERROR",
-            message: "Unable to create user.",
+            message: "Unable to create user",
             full: null
         }, StatusCodes.INTERNAL_SERVER_ERROR];
     }
 
-    log("[CHALLENGE] User retrieved successfully.", user.$id);
+    log("[CHALLENGE] User retrieved successfully", user.$id);
 
     if (!user.status) {
-        error("[CHALLENGE] User account is blocked.");
+        error("[CHALLENGE] User account is blocked");
         return [{
             code: "USER_ERROR",
-            message: "User account is blocked.",
+            message: "User account is blocked",
             full: null
         }, StatusCodes.FORBIDDEN];
     }
@@ -53,7 +53,7 @@ export default async function challengeEndpoint(
     if (!response) {
         return [{
             code: "CMS_ERROR",
-            message: "Failed to communicate with CMS.",
+            message: "Failed to communicate with CMS",
             full: null
         }, StatusCodes.INTERNAL_SERVER_ERROR];
     }
@@ -62,16 +62,16 @@ export default async function challengeEndpoint(
         error("[CHALLENGE] CMS returned an unsuccessful status", response.status);
         return [{
             code: "CMS_ERROR",
-            message: "CMS returned an error.",
+            message: "CMS returned an error",
             full: response.data
         }, response.status];
     }
 
-    log("[CHALLENGE] CMS challenge request successful.");
+    log("[CHALLENGE] CMS challenge request successful");
     
     return [{
         code: "OK",
-        message: "SMS sent successfully.",
+        message: "SMS sent successfully",
         full: null
     }, StatusCodes.OK];
 }

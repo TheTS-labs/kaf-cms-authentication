@@ -88,7 +88,7 @@ export default async function loginEndpoint(
         error("[LOGIN] Error while fetching user information", info.status);
         return [{
             code: "CMS_ERROR",
-            message: "Failed to retrieve user information.",
+            message: "Failed to retrieve user information",
             full: info.data
         }, info.status];
     }

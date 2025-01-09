@@ -37,7 +37,7 @@ export default async ({ req, res, log, error }: AppwriteRequest) => {
         "full": validatedBody.error.format()
       }, StatusCodes.BAD_REQUEST);
     }
-    log("[CHALLENGE] Body validated.")
+    log("[CHALLENGE] Body validated")
 
     const result = await challengeEndpoint(client, validatedBody.data, log, error);
     return res.json(...result);
@@ -55,7 +55,7 @@ export default async ({ req, res, log, error }: AppwriteRequest) => {
         "full": validatedBody.error.format()
       }, StatusCodes.BAD_REQUEST);
     }
-    log("[LOGIN] Body validated.")
+    log("[LOGIN] Body validated")
     
     const result = await loginEndpoint(client, validatedBody.data, log, error);
     return res.json(...result);
