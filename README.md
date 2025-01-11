@@ -50,13 +50,13 @@ Sample `POST` Request:
 
 Sample `200` Response:
 
-```text
+```json
 {
     "code": "OK",
     "message": "Login was successful",
     "full": {
         "secret": "237cda",
-        "cms_token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJhdXRoLXVzZXJcIjpcIlRPVlRSXCIsXCJtb3VudGVyLWlkXCI6Njg3N30iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJleHAiOjE3MzY1MzUyOTR9.msUV0Jw-jf4IIoqoQtpgVsBDs_4zlqnPlC_e7zgx1JM0lxyZQLa1XyqAO5SgAZVdZdlF1nSXBB7V72Ey0K-ujQ"
+        "cms_token": "eyJhbGciOiJIUzUxMiJ9..."
     }
 }
 ```
