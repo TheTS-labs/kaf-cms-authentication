@@ -105,6 +105,7 @@ export default async function loginEndpoint(
         code: "OK",
         message: "Login was successful",
         full: {
+            cms_id: info.data.data.id,
             secret: token.secret,
             cms_token: response.data.idToken
         }

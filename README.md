@@ -55,6 +55,7 @@ Sample `200` Response:
     "code": "OK",
     "message": "Login was successful",
     "full": {
+        "cms_id": 6877,
         "secret": "237cda",
         "cms_token": "eyJhbGciOiJIUzUxMiJ9..."
     }
