@@ -1,4 +1,5 @@
 import { StatusCodes } from "http-status-codes";
+import { JSONRequestError } from "./lib/request_error";
 
 export interface Request {
   bodyText: string;
@@ -16,7 +17,7 @@ export interface Request {
 
 export interface Response {
   empty: () => void;
-  json: (data: Result, statusCode?: StatusCodes, headers?: Record<string, string>) => void;
+  json: (data: any, statusCode?: StatusCodes, headers?: Record<string, string>) => void;
   binary: (data: Buffer, statusCode?: StatusCodes, headers?: Record<string, string>) => void;
   redirect: (url: string, statusCode?: StatusCodes, headers?: Record<string, string>) => void;
   text: (content: string, statusCode?: StatusCodes, headers?: Record<string, string>) => void;
@@ -32,8 +33,13 @@ export interface AppwriteRequest {
   log: Logger;
   error: Logger;
 }
-export interface Result {
-  code: "BAD_REQUEST" | "PROXY_ERROR" | "USER_ERROR" | "CMS_ERROR" | "TOKEN_ERROR" | "NOT_FOUND" | "OK"
-  message: string;
-  full: unknown | null;
+
+export interface CMSResponse {
+  data: {
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+    username: string;
+  }
 }

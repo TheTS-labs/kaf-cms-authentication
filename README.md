@@ -1,63 +1,21 @@
 # Kaf's CMS Authentication
 
-Appwrite function to authenticate users via CMS
+Appwrite function to authenticate users via CMS, and create a session and an account if it doesn't exist
 
 ## 🧰 Usage
 
-### POST /challenge
+### POST /
 
-- Sends a request to the CMS to pre authenticate (send an SMS code) the user
-
-**Request**
-
-Sample `POST` Request:
-
-```json
-{
-  "username": "username",
-  "password": "password"
-}
-```
-
-**Response**
-
-Sample `200` Response:
-
-```json
-{
-  "code": "OK",
-  "message": "SMS sent successfully.",
-  "full": null
-}
-```
-
-### POST /login
-
-- Logins in CMS using the provided username and code and creates a session
-
-**Request**
-
-Sample `POST` Request:
-
-```json
-{
-  "username": "username",
-  "code": "12345"
-}
-```
-
-**Response**
+Sends a request to the CMS (`/api/users/me`) with provided JWT token in the `Authorization` header (e.g. `Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJh...`)
 
 Sample `200` Response:
 
 ```json
 {
     "code": "OK",
-    "message": "Login was successful",
+    "message": "Login successful",
     "full": {
-        "cms_id": 6877,
-        "secret": "237cda",
-        "cms_token": "eyJhbGciOiJIUzUxMiJ9..."
+        "secret": "49970e"
     }
 }
 ```
@@ -74,10 +32,6 @@ Sample `200` Response:
 
 ## 🔒 Environment Variables
 
-| Variable          | Value                               |
-| ----------------- | ----------------------------------- |
-| PROXY_USER        | Username for proxy server           |
-| PROXY_PASS        | Password for proxy server           |
-| PROXY_URL         | URL for **UKRAINIAN** proxy server  |
-| PROXY_PORT        | Port for proxy server               |
-| CMS_BASE_URL      | Base URL for CMS                    |
+| Variable          | Value             | Example                                   |
+| ----------------- | ----------------- | ----------------------------------------- |
+| CMS_BASE_URL      | Base URL for CMS  | <https://cms-mobile-api.fcs.kyivstar.ua>  |
