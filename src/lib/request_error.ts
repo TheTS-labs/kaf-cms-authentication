@@ -45,11 +45,11 @@ export default class RequestError extends Error {
         this.name = "RequestError";
     }
 
-    json(): [JSONRequestError, StatusCodes] {
-        return [{
+    json(): JSONRequestError {
+        return {
             code: this.code,
             message: this.message,
             full: this.full,
-        }, this.status];
+        };
     }
 }

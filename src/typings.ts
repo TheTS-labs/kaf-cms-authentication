@@ -1,9 +1,8 @@
 import { StatusCodes } from "http-status-codes";
-import { JSONRequestError } from "./lib/request_error";
 
 export interface Request {
   bodyText: string;
-  bodyJson: Record<string, unknown> | string;
+  bodyJson: Record<string, unknown>;
   headers: Record<string, string>;
   scheme: "http" | "https";
   method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "OPTIONS" | "HEAD";
@@ -42,4 +41,12 @@ export interface CMSResponse {
     phone: string;
     username: string;
   }
+}
+export interface VerifyBody {
+  challenge: {
+    orders: string[];
+    expire: number;
+    signature: string;
+  };
+  answer: number[];
 }
