@@ -28,6 +28,7 @@ export default async function verifyHandler(client: Client, req: VerifyBody, opt
     const token = await users.createToken(user.$id);
 
     return {
+        id: user.$id,
         secret: token.secret,
     }
 }
