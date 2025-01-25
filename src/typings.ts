@@ -2,7 +2,7 @@ import { StatusCodes } from "http-status-codes";
 
 export interface Request {
   bodyText: string;
-  bodyJson: Record<string, unknown> | string;
+  bodyJson: Record<string, unknown>;
   headers: Record<string, string>;
   scheme: "http" | "https";
   method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "OPTIONS" | "HEAD";
@@ -16,7 +16,7 @@ export interface Request {
 
 export interface Response {
   empty: () => void;
-  json: (data: Result, statusCode?: StatusCodes, headers?: Record<string, string>) => void;
+  json: (data: any, statusCode?: StatusCodes, headers?: Record<string, string>) => void;
   binary: (data: Buffer, statusCode?: StatusCodes, headers?: Record<string, string>) => void;
   redirect: (url: string, statusCode?: StatusCodes, headers?: Record<string, string>) => void;
   text: (content: string, statusCode?: StatusCodes, headers?: Record<string, string>) => void;
@@ -32,8 +32,21 @@ export interface AppwriteRequest {
   log: Logger;
   error: Logger;
 }
-export interface Result {
-  code: "BAD_REQUEST" | "PROXY_ERROR" | "USER_ERROR" | "CMS_ERROR" | "TOKEN_ERROR" | "NOT_FOUND" | "OK"
-  message: string;
-  full: unknown | null;
+
+export interface CMSResponse {
+  data: {
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+    username: string;
+  }
+}
+export interface VerifyBody {
+  challenge: {
+    orders: string[];
+    expire: number;
+    signature: string;
+  };
+  answer: number[];
 }
